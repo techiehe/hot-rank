@@ -5,64 +5,47 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-
+    --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
+    --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 142.1 76.2% 36.3%;
+    --primary-foreground: 355.7 100% 97.3%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 142.1 76.2% 36.3%;
     --radius: 0.5rem;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
+    --background: 20 14.3% 4.1%;
+    --foreground: 0 0% 95%;
+    --card: 24 9.8% 10%;
+    --card-foreground: 0 0% 95%;
+    --popover: 0 0% 9%;
+    --popover-foreground: 0 0% 95%;
+    --primary: 142.1 70.6% 45.3%;
+    --primary-foreground: 144.9 80.4% 10%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 12 6.5% 15.1%;
+    --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --destructive-foreground: 0 85.7% 97.3%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 142.4 71.8% 29.2%;
   }
 }
 
@@ -75,7 +58,118 @@
   }
 }
 
+/* 通用滚动条样式，适用于所有滚动条 */
+*::-webkit-scrollbar {
+  width: 4px !important;
+  height: 4px !important;
+}
+
+*::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
 html,
 body {
   height: 100%;
+}
+
+.bg-gradient-radial {
+  background-image: radial-gradient(var(--tw-gradient-stops));
+}
+
+@keyframes moveRight {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(8px); /* 根据需要调整移动的距离 */
+  }
+}
+
+.move-right-animate:hover {
+  animation: moveRight 0.3s ease-in-out forwards; /* 调整动画时间和缓动函数 */
+}
+
+@keyframes widthChange {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.move-right-animate:hover::after {
+  content: "";
+  display: block;
+  height: 2px;
+  background-color: #888;
+  border-radius: 100%;
+  animation: widthChange 0.3s ease-in-out forwards;
+}
+
+@layer base {
+  .sortable-chosen {
+    opacity: 0.5 !important;
+  }
+
+  .sortable-ghost {
+    opacity: 0 !important;
+  }
+
+  .sortable-drag {
+    opacity: 1 !important;
+  }
+
+  .active-tab {
+    background-color: var(bg-primary);
+  }
+}
+
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 100px;
+  height: 60px;
+  display: flex;
+  animation: l12-0 2s infinite linear;
+}
+.loader::before,
+.loader::after {
+  content: "";
+  flex: 4;
+  background: radial-gradient(at 50% 20%, #0000, #000a) bottom left/20px 20px
+      repeat-x,
+    linear-gradient(red 0 0) bottom/100% 20px no-repeat #ddd;
+  -webkit-mask: repeating-linear-gradient(90deg, #000 0 4px, #0000 0 20px) 8px 0,
+    radial-gradient(farthest-side, #000 90%, #0000) left bottom/20px 20px
+      repeat-x;
+}
+.loader::after {
+  flex: 1;
+  transform-origin: top;
+  animation: l12-1 1s cubic-bezier(0, 20, 1, 20) infinite;
+}
+@keyframes l12-0 {
+  0%,
+  49.9% {
+    transform: scaleX(1);
+  }
+  50%,
+  100% {
+    transform: scaleX(-1);
+  }
+}
+@keyframes l12-1 {
+  100% {
+    transform: rotate(-2deg);
+  }
 }
