@@ -1,11 +1,4 @@
 "use client";
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
 import { useTheme } from "next-themes";
 import useHasMounted from "@/hook/use-has-mounted";
 import Image from "next/image";
@@ -13,11 +6,10 @@ import Link from "next/link";
 import Favicon from "@/app/favicon.ico";
 import { AiOutlineSetting } from "react-icons/ai";
 import TooltipString from "./tooltip-string";
-import { BiSolidSun, BiSolidMoon, BiHomeAlt } from "react-icons/bi";
+import { BiSolidSun, BiSolidMoon } from "react-icons/bi";
 import { Button } from "./ui/button";
 import { Solar } from "lunar-typescript";
 import { useEffect, useRef, useState } from "react";
-import { useImmer } from "use-immer";
 
 const DateCom = () => {
   const ref = useRef<any>(null);
@@ -53,7 +45,14 @@ const DateCom = () => {
         </div>
       </div>
       <div className="flex flex-col">
-        <span>宜：教牛马,馀事勿取</span> <span>忌：入宅,动土,破土</span>
+        <div>
+          <span className="text-red-500">宜：</span>
+          {yi.toString()}
+        </div>
+        <div>
+          <span className="text-black dark:text-white">忌：</span>
+          {ji.toString()}
+        </div>
       </div>
     </div>
   );
@@ -74,15 +73,15 @@ export default function Header() {
       <DateCom />
       <div className="flex gap-2">
         <TooltipString tooltip="主题切换">
-          <Button size="icon" className="rounded-full">
+          <Button size="icon" className="rounded-full  w-8 h-8">
             {theme === "dark" ? (
               <BiSolidSun
-                className="w-5 h-5"
+                className="w-4 h-4"
                 onClick={() => setTheme("light")}
               />
             ) : (
               <BiSolidMoon
-                className="w-5 h-5"
+                className="w-4 h-4"
                 onClick={() => setTheme("dark")}
               />
             )}
@@ -90,7 +89,7 @@ export default function Header() {
         </TooltipString>
         <TooltipString tooltip="网站设置">
           <Link href="/setting">
-            <Button size="icon" className="rounded-full">
+            <Button size="icon" className="rounded-full w-8 h-8">
               <AiOutlineSetting className="w-4 h-4" />
             </Button>
           </Link>
