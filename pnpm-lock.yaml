@@ -26,6 +26,9 @@ dependencies:
   '@vercel/analytics':
     specifier: ^1.1.1
     version: 1.1.1
+  '@vercel/speed-insights':
+    specifier: ^1.0.0
+    version: 1.0.0
   cheerio:
     specifier: 1.0.0-rc.12
     version: 1.0.0-rc.12
@@ -41,6 +44,9 @@ dependencies:
   immer:
     specifier: ^10.0.3
     version: 10.0.3
+  lunar-typescript:
+    specifier: ^1.6.13
+    version: 1.6.13
   next:
     specifier: 14.0.3
     version: 14.0.3(@babel/core@7.23.5)(react-dom@18.2.0)(react@18.2.0)
@@ -2369,6 +2375,11 @@ packages:
       server-only: 0.0.1
     dev: false
 
+  /@vercel/speed-insights@1.0.0:
+    resolution: {integrity: sha512-5blmCVGGPn+3BqwBPb1jc3OnzRozNuLgJVr7xH6XjxCTvocs7z/Bml7lo+JzLKUXR1Q35qI/PlEllmNbZmP9Ew==}
+    requiresBuild: true
+    dev: false
+
   /acorn-jsx@5.3.2(acorn@8.11.2):
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
     peerDependencies:
@@ -4004,6 +4015,10 @@ packages:
     dependencies:
       yallist: 4.0.0
     dev: true
+
+  /lunar-typescript@1.6.13:
+    resolution: {integrity: sha512-6gBJepWWRiCvpbxxeiogsd/ZIggBbH1xmS090Kat/FiM0AGFnso0bmYXL1q/opr8qrMdnjsBlMZqBvNiRKACGA==}
+    dev: false
 
   /mdn-data@2.0.28:
     resolution: {integrity: sha512-aylIc7Z9y4yzHYAJNuESG3hfhC+0Ibp/MAMiaOZgNv4pmEdFyfZhhhny4MNiAfWdBQ1RQ2mfDWmM1x8SvGyp8g==}

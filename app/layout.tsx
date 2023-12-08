@@ -8,6 +8,7 @@ import SliderTool from "@/components/slider-tool";
 import { Toaster } from "react-hot-toast";
 import { cn } from "@/lib/utils";
 import Header from "@/components/header";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -39,6 +40,7 @@ export default function RootLayout({
           <Background />
           <Analytics />
           <Toaster />
+          <SpeedInsights />
         </ThemeProvider>
       </body>
     </html>
