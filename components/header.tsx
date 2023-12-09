@@ -11,6 +11,12 @@ import { Button } from "./ui/button";
 import { Solar } from "lunar-typescript";
 import { useEffect, useRef, useState } from "react";
 
+
+
+/**
+ * 日期组建
+ * @returns 
+ */
 const DateCom = () => {
   const ref = useRef<any>(null);
   const [flag, updateFlag] = useState<boolean>(false);
