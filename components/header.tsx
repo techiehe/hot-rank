@@ -46,11 +46,11 @@ const DateCom = () => {
       </div>
       <div className="flex flex-col">
         <div>
-          <span className="text-red-500">宜：</span>
+          <span className="text-green-500 font-bold">宜：</span>
           {yi.toString()}
         </div>
         <div>
-          <span className="text-black dark:text-white">忌：</span>
+          <span className="text-red-500 font-bold">忌：</span>
           {ji.toString()}
         </div>
       </div>
