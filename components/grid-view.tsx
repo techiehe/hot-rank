@@ -17,7 +17,7 @@ import { BiRefresh, BiMove } from "react-icons/bi";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { setRankList } from "@/lib/store";
-import TooltipString from "./tooltip-string";
+import {TooltipString} from "./tooltip";
 const handleUpdateRankById = async (
   index: number,
   id: string,

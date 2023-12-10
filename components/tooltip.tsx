@@ -6,13 +6,13 @@ import {
 } from "@/components/ui/tooltip";
 import React from "react";
 
-export default function TooltipString({
+export const TooltipString = ({
   children,
   tooltip,
 }: {
   children: React.ReactNode;
-  tooltip: string;
-}) {
+  tooltip: React.ReactNode;
+}) => {
   return (
     <TooltipProvider>
       <Tooltip>
@@ -23,4 +23,4 @@ export default function TooltipString({
       </Tooltip>
     </TooltipProvider>
   );
-}
+};

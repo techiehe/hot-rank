@@ -2,7 +2,7 @@
 
 import { Button } from "./ui/button";
 import { BiArrowToTop } from "react-icons/bi";
-import TooltipString from "./tooltip-string";
+import { TooltipString } from "./tooltip";
 
 const SliderTool: React.FC = () => {
   return (
