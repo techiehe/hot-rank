@@ -20,6 +20,41 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@radix-ui/react-popover";
+
+import { usePopper } from "react-popper";
+
+const Example = () => {
+  const referenceElement = useRef(null);
+  const popperElement = useRef(null);
+  const arrowElement = useRef(null);
+
+  const { styles, attributes } = usePopper(
+    referenceElement.current,
+    popperElement.current,
+    {
+      modifiers: [
+        { name: "arrow", options: { element: arrowElement.current } },
+      ],
+    }
+  );
+
+  return (
+    <>
+      <button type="button" ref={referenceElement}>
+        Reference element
+      </button>
+      <div ref={popperElement} style={styles.popper} {...attributes.popper}>
+        Popper element
+        <div ref={arrowElement} style={styles.arrow} />
+      </div>
+    </>
+  );
+};
 
 const DateShow = ({ solar }: { solar: Solar }) => {
   return (
@@ -58,8 +93,6 @@ function DateTime(props: DayContentProps) {
   const dateTime = format(props.date, "yyyy-MM-dd");
   let _ = Solar.fromDate(props.date);
   return (
-
-
     <HoverPopover
       trigger={
         <div className="flex flex-col p-2 h-12 w-12">
@@ -122,24 +155,25 @@ const DateCom = () => {
     <div className="hidden sm:flex  gap-2 text-sm text-gray-800 dark:text-gray-400">
       <DateShow solar={solar.current} />
       <div>
-        <HoverCard>
-          <HoverCardTrigger>
-            {" "}
+        <Popover>
+          <PopoverTrigger>
             <BiCalendar />
-          </HoverCardTrigger>
-          <HoverCardContent className="w-94 z-[50]">
+          </PopoverTrigger>
+          <PopoverContent className="w-94 z-[9998] bg-white shadow-xl rounded-lg p-4 mt-4">
             <Calendar
               components={{ DayContent: DateTime }}
               mode="single"
               selected={date}
-              className="rounded-md  w-92"
+              className="rounded-md w-92"
               locale={zhCN}
               onDayClick={(day) => {
                 setDate(day);
               }}
             />
-          </HoverCardContent>
-        </HoverCard>
+          </PopoverContent>
+        </Popover>
+
+        {/* <Example /> */}
       </div>
     </div>
   );
