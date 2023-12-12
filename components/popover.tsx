@@ -1,39 +1,67 @@
+import {
+  useFloating,
+  autoUpdate,
+  offset,
+  flip,
+  shift,
+  useClick,
+  useDismiss,
+  useRole,
+  useInteractions,
+  FloatingFocusManager,
+  useHover,
+} from "@floating-ui/react";
 import { useState } from "react";
-import { Popover } from "./ui/popover";
-import { PopoverContent, PopoverTrigger } from "@radix-ui/react-popover";
+import { Card, CardContent } from "./ui/card";
 
-const HoverPopover = ({
+export function Popover({
   trigger,
   children,
+  hoverEnabled = false,
 }: {
   trigger: React.ReactNode;
   children: React.ReactNode;
-}) => {
-  const [open, setOpen] = useState(false);
-
-  const handleMouseEnter = () => {
-    setOpen(true);
-  };
-
-  const handleMouseLeave = () => {
-    setOpen(false);
-  };
+  hoverEnabled?: boolean;
+}) {
+  const [isOpen, setIsOpen] = useState(false);
+  const { refs, floatingStyles, context } = useFloating({
+    open: isOpen,
+    onOpenChange: setIsOpen,
+    middleware: [offset(10), flip(), shift()],
+    whileElementsMounted: autoUpdate,
+  });
+  const click = useClick(context);
+  const hover = useHover(context, {
+    enabled: hoverEnabled,
+  });
+  const dismiss = useDismiss(context);
+  const role = useRole(context);
+  const { getReferenceProps, getFloatingProps } = useInteractions([
+    click,
+    dismiss,
+    role,
+    hover,
+  ]);
 
   return (
-    <Popover  open={open} onOpenChange={setOpen}>
-      <PopoverTrigger
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}>
+    <>
+      <div
+        ref={refs.setReference}
+        {...getReferenceProps()}
+        className="cursor-pointer">
         {trigger}
-      </PopoverTrigger>
-      <PopoverContent
-      className="bg-white z-[9999] p-4 shadow-lg"
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}>
-        {children}
-      </PopoverContent>
-    </Popover>
+      </div>
+      {isOpen && (
+        <FloatingFocusManager context={context} modal={false}>
+          <Card
+            className="rounded-lg shadow-xl z-[555555]"
+            ref={refs.setFloating}
+            style={floatingStyles}
+            {...getFloatingProps()}>
+            <CardContent className="p-0">{children}</CardContent>
+          </Card>
+        </FloatingFocusManager>
+      )}
+    </>
   );
-};
-
-export { HoverPopover };
+}

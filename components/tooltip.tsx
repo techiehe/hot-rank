@@ -1,26 +1,77 @@
+import { cn } from "@/lib/utils";
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+  useFloating,
+  autoUpdate,
+  offset,
+  flip,
+  shift,
+  FloatingArrow,
+  useDismiss,
+  useRole,
+  useInteractions,
+  FloatingFocusManager,
+  useHover,
+  arrow,
+  useFocus,
+} from "@floating-ui/react";
+import { useState } from "react";
 import React from "react";
 
 export const TooltipString = ({
+  tooltip = {
+    placement: "top",
+    content: "",
+    className: "",
+  },
   children,
-  tooltip,
 }: {
+  tooltip: {
+    placement?: "top" | "bottom" | "left" | "right";
+    className?: string;
+    content: React.ReactNode;
+  };
   children: React.ReactNode;
-  tooltip: React.ReactNode;
 }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const { refs, floatingStyles, context } = useFloating({
+    open: isOpen,
+    onOpenChange: setIsOpen,
+    placement: tooltip.placement,
+    middleware: [offset(10), flip(), shift()],
+    whileElementsMounted: autoUpdate,
+  });
+  const hover = useHover(context, { move: false });
+  const focus = useFocus(context);
+  const dismiss = useDismiss(context);
+  const role = useRole(context, {
+    role: "tooltip",
+  });
+  const { getReferenceProps, getFloatingProps } = useInteractions([
+    hover,
+    focus,
+    dismiss,
+    role,
+  ]);
   return (
-    <TooltipProvider>
-      <Tooltip>
-        <TooltipTrigger asChild>{children}</TooltipTrigger>
-        <TooltipContent className="mb-1">
-          <p>{tooltip}</p>
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
+    <>
+      <div
+        ref={refs.setReference}
+        {...getReferenceProps()}
+        className="cursor-pointer">
+        {children}
+      </div>
+      {isOpen && (
+        <div
+          ref={refs.setFloating}
+          style={floatingStyles}
+          className={cn(
+            "bg-primary text-primary-foreground shadow hover:bg-primary/90 px-2 py-1 text-sm rounded-md z-[99999]",
+            tooltip.className
+          )}
+          {...getFloatingProps()}>
+          {tooltip.content}
+        </div>
+      )}
+    </>
   );
 };

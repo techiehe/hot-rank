@@ -31,7 +31,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange>
           <div className="flex flex-col gap-8 relative">
-            <Header></Header>
+            <Header />
             <main className="container pb-8 px-4 sm:px-20 flex gap-4 flex-col ">
               {children}
             </main>

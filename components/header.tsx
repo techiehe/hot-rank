@@ -12,51 +12,15 @@ import { Solar } from "lunar-typescript";
 import { useEffect, useRef, useState } from "react";
 import { Calendar } from "@/components/ui/calendar";
 import zhCN from "date-fns/locale/zh-CN";
-import { HoverPopover } from "./popover";
 import { format } from "date-fns";
 import { DayContent, DayContentProps, DayPicker } from "react-day-picker";
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@radix-ui/react-popover";
-
-import { usePopper } from "react-popper";
-
-const Example = () => {
-  const referenceElement = useRef(null);
-  const popperElement = useRef(null);
-  const arrowElement = useRef(null);
-
-  const { styles, attributes } = usePopper(
-    referenceElement.current,
-    popperElement.current,
-    {
-      modifiers: [
-        { name: "arrow", options: { element: arrowElement.current } },
-      ],
-    }
-  );
-
-  return (
-    <>
-      <button type="button" ref={referenceElement}>
-        Reference element
-      </button>
-      <div ref={popperElement} style={styles.popper} {...attributes.popper}>
-        Popper element
-        <div ref={arrowElement} style={styles.arrow} />
-      </div>
-    </>
-  );
-};
+import { Popover } from "./popover";
+import useScroll from "@/hook/use-scroll";
+import { cn } from "@/lib/utils";
 
 const DateShow = ({ solar }: { solar: Solar }) => {
+  const yi = solar.getLunar().getDayYi().toString();
+  const ji = solar.getLunar().getDayJi().toString();
   return (
     <>
       <div className="flex flex-col text-center">
@@ -75,15 +39,25 @@ const DateShow = ({ solar }: { solar: Solar }) => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col">
-        <div>
-          <span className="text-green-500 font-bold">宜：</span>
-          {solar.getLunar().getDayYi().toString()}
-        </div>
-        <div>
-          <span className="text-red-500 font-bold">忌：</span>
-          {solar.getLunar().getDayJi().toString()}
-        </div>
+      <div className="flex flex-col w-64">
+        <TooltipString
+          tooltip={{
+            content: yi,
+          }}>
+          <div className=" overflow-hidden text-ellipsis whitespace-nowrap">
+            <span className="text-green-500 font-bold">宜：</span>
+            {yi}
+          </div>
+        </TooltipString>
+        <TooltipString
+          tooltip={{
+            content: ji,
+          }}>
+          <div className=" overflow-hidden text-ellipsis whitespace-nowrap">
+            <span className="text-red-500 font-bold">忌：</span>
+            {ji}
+          </div>
+        </TooltipString>
       </div>
     </>
   );
@@ -93,7 +67,8 @@ function DateTime(props: DayContentProps) {
   const dateTime = format(props.date, "yyyy-MM-dd");
   let _ = Solar.fromDate(props.date);
   return (
-    <HoverPopover
+    <Popover
+      hoverEnabled={true}
       trigger={
         <div className="flex flex-col p-2 h-12 w-12">
           <div>
@@ -112,7 +87,7 @@ function DateTime(props: DayContentProps) {
         <span className="text-red-500 font-bold">忌：</span>
         {_.getLunar().getDayJi().toString()}
       </div>
-    </HoverPopover>
+    </Popover>
   );
 }
 
@@ -154,27 +129,6 @@ const DateCom = () => {
   return (
     <div className="hidden sm:flex  gap-2 text-sm text-gray-800 dark:text-gray-400">
       <DateShow solar={solar.current} />
-      <div>
-        <Popover>
-          <PopoverTrigger>
-            <BiCalendar />
-          </PopoverTrigger>
-          <PopoverContent className="w-94 z-[9998] bg-white shadow-xl rounded-lg p-4 mt-4">
-            <Calendar
-              components={{ DayContent: DateTime }}
-              mode="single"
-              selected={date}
-              className="rounded-md w-92"
-              locale={zhCN}
-              onDayClick={(day) => {
-                setDate(day);
-              }}
-            />
-          </PopoverContent>
-        </Popover>
-
-        {/* <Example /> */}
-      </div>
     </div>
   );
 };
@@ -182,18 +136,27 @@ const DateCom = () => {
 export default function Header() {
   const hasMounted = useHasMounted();
   const { theme, setTheme } = useTheme();
+  const scrollInfo = useScroll();
+
   if (!hasMounted) {
     return null;
   }
   return (
-    <nav className="flex justify-between items-center border-slate-100 p-4  bg-[hsl(var(--card))] bg-opacity-80 sticky top-0">
+    <nav
+      className={cn(
+        "flex justify-between items-center border-slate-100 p-4  bg-[hsl(var(--card))] bg-opacity-80 sticky top-0 z-[9998]",
+        scrollInfo.y > 64 ? "shadow-md" : " border-b dark:border-none"
+      )}>
       <Link href={"/"} className="flex gap-2 cursor-pointer pl-2">
         <Image src={Favicon} width={20} height={20} alt=""></Image>
         <span>热榜聚合</span>
       </Link>
       <DateCom />
       <div className="flex gap-2">
-        <TooltipString tooltip="主题切换">
+        <TooltipString
+          tooltip={{
+            content: "主题切换",
+          }}>
           <Button size="icon" className="rounded-full  w-8 h-8">
             {theme === "dark" ? (
               <BiSolidSun
@@ -208,7 +171,10 @@ export default function Header() {
             )}
           </Button>
         </TooltipString>
-        <TooltipString tooltip="网站设置">
+        <TooltipString
+          tooltip={{
+            content: "网站设置",
+          }}>
           <Link href="/setting">
             <Button size="icon" className="rounded-full w-8 h-8">
               <AiOutlineSetting className="w-4 h-4" />

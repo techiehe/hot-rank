@@ -2,12 +2,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import Sortable from "sortablejs";
 
 import { SkeletonBar } from "@/components/skeleton-bar";
@@ -17,7 +11,7 @@ import { BiRefresh, BiMove } from "react-icons/bi";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { setRankList } from "@/lib/store";
-import {TooltipString} from "./tooltip";
+import { TooltipString } from "./tooltip";
 const handleUpdateRankById = async (
   index: number,
   id: string,
@@ -125,7 +119,10 @@ const RankItem = ({
       className="card border shadow-none hover:shadow-lg border-slate-100 dark:border-slate-800 rounded-2xl">
       <CardHeader className="flex items-center justify-between gap-2">
         <Link href={`/rank/${rank.id}`}>
-          <TooltipString tooltip="点击查看更多">
+          <TooltipString
+            tooltip={{
+              content: "点击查看更多",
+            }}>
             <div className="flex items-center gap-2 text-sm">
               <Image
                 src={`/${rank.source}.ico`}
@@ -138,37 +135,29 @@ const RankItem = ({
           </TooltipString>
         </Link>
         <div className="flex gap-2">
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button className="px-0 move" variant={"link"}>
-                  <BiMove className={cn("w-5 h-5")} />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>拖拽排序</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  className="px-0"
-                  variant={"link"}
-                  onClick={() =>
-                    handleUpdateRankById(index, rank.id, updateRankList)
-                  }>
-                  <BiRefresh
-                    className={cn("w-5 h-5", rank.isLoadData && "animate-spin")}
-                  />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>刷新内容</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+          <TooltipString
+            tooltip={{
+              content: "拖拽排序",
+            }}>
+            <Button className="px-0 move" variant={"link"}>
+              <BiMove className={cn("w-5 h-5")} />
+            </Button>
+          </TooltipString>
+          <TooltipString
+            tooltip={{
+              content: "刷新内容",
+            }}>
+            <Button
+              className="px-0"
+              variant={"link"}
+              onClick={() =>
+                handleUpdateRankById(index, rank.id, updateRankList)
+              }>
+              <BiRefresh
+                className={cn("w-5 h-5", rank.isLoadData && "animate-spin")}
+              />
+            </Button>
+          </TooltipString>
         </div>
       </CardHeader>
       <CardContent>
