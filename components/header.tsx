@@ -63,34 +63,6 @@ const DateShow = ({ solar }: { solar: Solar }) => {
   );
 };
 
-function DateTime(props: DayContentProps) {
-  const dateTime = format(props.date, "yyyy-MM-dd");
-  let _ = Solar.fromDate(props.date);
-  return (
-    <Popover
-      hoverEnabled={true}
-      trigger={
-        <div className="flex flex-col p-2 h-12 w-12">
-          <div>
-            <time dateTime={dateTime}>
-              <DayContent {...props} />
-            </time>
-          </div>
-          <div className="text-xs">{_.getLunar().getDayInChinese()}</div>
-        </div>
-      }>
-      <div>
-        <span className="text-green-500 font-bold">宜：</span>
-        {_.getLunar().getDayYi().toString()}
-      </div>
-      <div>
-        <span className="text-red-500 font-bold">忌：</span>
-        {_.getLunar().getDayJi().toString()}
-      </div>
-    </Popover>
-  );
-}
-
 /**
  * 日期组建
  * @returns
@@ -157,17 +129,14 @@ export default function Header() {
           tooltip={{
             content: "主题切换",
           }}>
-          <Button size="icon" className="rounded-full  w-8 h-8">
+          <Button
+            size="icon"
+            className="rounded-full  w-8 h-8"
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
             {theme === "dark" ? (
-              <BiSolidSun
-                className="w-4 h-4"
-                onClick={() => setTheme("light")}
-              />
+              <BiSolidSun className="w-4 h-4" />
             ) : (
-              <BiSolidMoon
-                className="w-4 h-4"
-                onClick={() => setTheme("dark")}
-              />
+              <BiSolidMoon className="w-4 h-4" />
             )}
           </Button>
         </TooltipString>

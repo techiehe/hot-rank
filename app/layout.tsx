@@ -9,7 +9,9 @@ import { Toaster } from "react-hot-toast";
 import { cn } from "@/lib/utils";
 import Header from "@/components/header";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-
+import { BiRocket } from "react-icons/bi";
+import Alert from "@/components/alert";
+import FeatureUpdate from "@/components/feature-update";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -33,6 +35,7 @@ export default function RootLayout({
           <div className="flex flex-col gap-8 relative">
             <Header />
             <main className="container pb-8 px-4 sm:px-20 flex gap-4 flex-col ">
+              <FeatureUpdate />
               {children}
             </main>
           </div>

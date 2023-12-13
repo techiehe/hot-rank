@@ -1,11 +1,4 @@
-export const meta = {
-  name: "界面-今日热点",
-  source: "jiemian",
-  url: "https://www.jiemian.com/lists/1323kb.html",
-  id: "jiemian_hot_article_rank",
-};
-
-export async function rank() {
+export async function kuaiBaoRank(id: string, page: number = 1) {
   const timestamp = Math.round(new Date().getTime() / 1000);
   try {
     const headers = {
@@ -13,7 +6,7 @@ export async function rank() {
         "Mozilla/5.0 (Linux; Android 5.0; SM-G900P Build/LRX21T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Mobile Safari/537.36",
     };
     const res = await fetch(
-      `https://papi.jiemian.com/page/api/kuaixun/getlistmore?cid=1324kb&start_time=${timestamp}&page=1&tagid=1324`,
+      `https://papi.jiemian.com/page/api/kuaixun/getlistmore?cid=${id}kb&start_time=${timestamp}&page=${page}&tagid=${id}`,
       {
         method: "GET",
         headers,
@@ -35,7 +28,3 @@ export async function rank() {
     return [];
   }
 }
-export default {
-  meta,
-  rank,
-};

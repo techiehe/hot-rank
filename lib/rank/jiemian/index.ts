@@ -1,3 +1,4 @@
-import hotArticle from "./hot-article";
+import gupiao from "./gupiao";
+import hotArticle from "./toady-hot";
 
-export default [hotArticle];
+export default [hotArticle, gupiao];
