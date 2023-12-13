@@ -173,3 +173,21 @@ body {
     transform: rotate(-2deg);
   }
 }
+
+
+
+.w-f-c-i-size {
+  animation: wooden-fish-size 0.3s;
+}
+
+@keyframes wooden-fish-size {
+0% {
+  transform: scale(1);
+}
+50% {
+  transform: scale(0.9);
+}
+100% {
+  transform: scale(1);
+}
+}

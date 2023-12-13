@@ -98,7 +98,7 @@ const Content = memo(({ rank }: { rank: Rank }) => {
         </div>
         <div className="text-sm">共 {rank.data.length} 条</div>
       </CardHeader>
-      <CardContent>
+      <CardContent className=" w-full">
         {rank.isLoadData ? (
           <SkeletonBar rowNum={20} />
         ) : (
@@ -107,8 +107,8 @@ const Content = memo(({ rank }: { rank: Rank }) => {
               <div
                 key={item.id}
                 onClick={() => window.open(item.link, "_blank")}
-                className="flex items-center gap-2 text-sm prose dark:prose-invert px-1 hover:cursor-pointer">
-                <span
+                className="flex  items-center gap-2 text-sm prose  max-w-full dark:prose-invert px-1 hover:cursor-pointer">
+                <div
                   className={cn(
                     "flex items-center justify-center bg-slate-100 dark:bg-slate-900 rounded-md w-6 h-6 flex-shrink-0",
                     index < 3 ? "text-white" : "",
@@ -121,7 +121,7 @@ const Content = memo(({ rank }: { rank: Rank }) => {
                       : ""
                   )}>
                   {index + 1}
-                </span>
+                </div>
                 <span className="move-right-animate">{item.title}</span>
               </div>
             ))}

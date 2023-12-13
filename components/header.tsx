@@ -10,56 +10,28 @@ import { BiSolidSun, BiSolidMoon, BiCalendar } from "react-icons/bi";
 import { Button } from "./ui/button";
 import { Solar } from "lunar-typescript";
 import { useEffect, useRef, useState } from "react";
-import { Calendar } from "@/components/ui/calendar";
-import zhCN from "date-fns/locale/zh-CN";
-import { format } from "date-fns";
-import { DayContent, DayContentProps, DayPicker } from "react-day-picker";
-import { Popover } from "./popover";
 import useScroll from "@/hook/use-scroll";
 import { cn } from "@/lib/utils";
+import MuYuIcon from "@/assets/svg/muyu.svg";
 
 const DateShow = ({ solar }: { solar: Solar }) => {
-  const yi = solar.getLunar().getDayYi().toString();
-  const ji = solar.getLunar().getDayJi().toString();
   return (
-    <>
-      <div className="flex flex-col text-center">
+    <div className="flex flex-col text-center">
+      <div>
+        <span>{solar.toYmdHms()}</span>{" "}
+        <span>星期{solar.getLunar().getWeekInChinese()} </span>
+      </div>
+      <div className="flex gap-1 justify-center">
+        <span>
+          {solar.getLunar().getYearInGanZhi()}(
+          {solar.getLunar().getYearShengXiao()})年
+        </span>
         <div>
-          <span>{solar.toYmdHms()}</span>{" "}
-          <span>星期{solar.getLunar().getWeekInChinese()} </span>
-        </div>
-        <div className="flex gap-1 justify-center">
-          <span>
-            {solar.getLunar().getYearInGanZhi()}(
-            {solar.getLunar().getYearShengXiao()})年
-          </span>
-          <div>
-            <span>{solar.getLunar().getMonthInChinese()}月</span>
-            <span>{solar.getLunar().getDayInChinese()}日</span>
-          </div>
+          <span>{solar.getLunar().getMonthInChinese()}月</span>
+          <span>{solar.getLunar().getDayInChinese()}日</span>
         </div>
       </div>
-      <div className="flex flex-col w-64">
-        <TooltipString
-          tooltip={{
-            content: yi,
-          }}>
-          <div className=" overflow-hidden text-ellipsis whitespace-nowrap">
-            <span className="text-green-500 font-bold">宜：</span>
-            {yi}
-          </div>
-        </TooltipString>
-        <TooltipString
-          tooltip={{
-            content: ji,
-          }}>
-          <div className=" overflow-hidden text-ellipsis whitespace-nowrap">
-            <span className="text-red-500 font-bold">忌：</span>
-            {ji}
-          </div>
-        </TooltipString>
-      </div>
-    </>
+    </div>
   );
 };
 
@@ -127,16 +99,29 @@ export default function Header() {
       <div className="flex gap-2">
         <TooltipString
           tooltip={{
+            content: "电子木鱼",
+          }}>
+          <Link href="/muyu">
+            <Button size="icon" className="rounded-full w-8 h-8">
+              <MuYuIcon className="w-4 h-4" />
+            </Button>
+          </Link>
+        </TooltipString>
+        <TooltipString
+          tooltip={{
             content: "主题切换",
           }}>
-          <Button
-            size="icon"
-            className="rounded-full  w-8 h-8"
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
+          <Button size="icon" className="rounded-full  w-8 h-8">
             {theme === "dark" ? (
-              <BiSolidSun className="w-4 h-4" />
+              <BiSolidSun
+                className="w-4 h-4"
+                onClick={() => setTheme("light")}
+              />
             ) : (
-              <BiSolidMoon className="w-4 h-4" />
+              <BiSolidMoon
+                className="w-4 h-4"
+                onClick={() => setTheme("dark")}
+              />
             )}
           </Button>
         </TooltipString>
