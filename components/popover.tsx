@@ -10,6 +10,7 @@ import {
   useInteractions,
   FloatingFocusManager,
   useHover,
+  autoPlacement,
 } from "@floating-ui/react";
 import { useState } from "react";
 import { Card, CardContent } from "./ui/card";
@@ -24,12 +25,18 @@ export function Popover({
   hoverEnabled?: boolean;
 }) {
   const [isOpen, setIsOpen] = useState(false);
+
+
+  // floating
   const { refs, floatingStyles, context } = useFloating({
     open: isOpen,
     onOpenChange: setIsOpen,
-    middleware: [offset(10), flip(), shift()],
+    middleware: [offset(10), flip(), shift(), autoPlacement()],
+    placement: 'top',
     whileElementsMounted: autoUpdate,
   });
+
+  // 交互操作
   const click = useClick(context);
   const hover = useHover(context, {
     enabled: hoverEnabled,

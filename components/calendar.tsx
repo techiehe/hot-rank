@@ -16,7 +16,11 @@ const DateTime = (props: DayContentProps) => {
   const festivals = [..._.getFestivals(), ..._.getOtherFestivals()];
 
   const temp = (
-    <>
+    <div
+      className={cn(
+        festivals.length > 0 &&
+          "after:block after:w-1 after:h-1  after:content-[''] after:bg-red-500 after:rounded-full after:absolute after:right-0 after:top-0"
+      )}>
       <time dateTime={dateTime}>
         <DayContent {...props} />
       </time>
@@ -27,40 +31,33 @@ const DateTime = (props: DayContentProps) => {
           <span>{_.getLunar().getDayInChinese()}</span>
         )}
       </div>
-    </>
+    </div>
   );
 
   return (
-    <div
-      className={cn(
-        "flex flex-col p-2 h-12 w-12  after:content-[''] ",
-        festivals.length > 0 &&
-          "after:block after:w-2 after:h-2 after:bg-red-500 after:rounded-full after:absolute after:right-0"
-      )}>
-      <Popover hoverEnabled={true} trigger={temp}>
-        <div className="w-64 whitespace-normal text-left flex flex-col gap-2">
-          <div>
-            {festivals.map((item, index) => {
-              return (
-                <span
-                  key={index}
-                  className="text-red-500 px-2 py-1 rounded-md border">
-                  {item}
-                </span>
-              );
-            })}
-          </div>
-          <div>
-            <span className="text-green-500 font-bold">宜：</span>
-            {lunar.getDayYi().toString()}
-          </div>
-          <div>
-            <span className="text-red-500 font-bold">忌：</span>
-            {lunar.getDayJi().toString()}
-          </div>
+    <Popover hoverEnabled={true} trigger={temp}>
+      <div className="w-64 whitespace-normal text-left flex flex-col gap-2 text-sm">
+        <div>
+          {festivals.map((item, index) => {
+            return (
+              <span
+                key={index}
+                className="text-red-500 px-2 py-1 rounded-md border">
+                {item}
+              </span>
+            );
+          })}
         </div>
-      </Popover>
-    </div>
+        <div>
+          <span className="text-green-500 font-bold">宜：</span>
+          {lunar.getDayYi().toString()}
+        </div>
+        <div>
+          <span className="text-red-500 font-bold">忌：</span>
+          {lunar.getDayJi().toString()}
+        </div>
+      </div>
+    </Popover>
   );
 };
 
@@ -70,13 +67,15 @@ export default function Calendar() {
   return (
     <div>
       <div className=" text-xs">
-        <span>注: 红点表示当日包含常见的国内国际节日和其他纪念日</span>
+        <span className="text-red-500">
+          注: 红点表示当日包含常见的国内国际节日和其他纪念日
+        </span>
       </div>
       <ReactCalendar
         components={{ DayContent: DateTime }}
         mode="single"
         selected={date.current}
-        className="rounded-md w-96"
+        className="rounded-md  w-[19rem]"
         locale={zhCN}
         onDayClick={(day) => {}}
       />

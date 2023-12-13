@@ -12,13 +12,15 @@ import SinaRank from "./sina";
 import PiyaoRank from "./piyao";
 import TiebaRank from "./tieba";
 import HistoryTodayRank from "./today-history";
-import NBDRank from "@/lib/rank/nbd"
+import NBDRank from "@/lib/rank/nbd";
 
 import HuPuList from "./hupu";
 import _36KrList from "./36kr";
 
+import JieMainList from "./jiemian";
+
 export const rankList = [
-  HistoryTodayRank,
+  ...JieMainList,
   AcFun,
   ZhihuRank,
   WeiboRank,
@@ -33,6 +35,7 @@ export const rankList = [
   HuxiuRank,
   DouyinHotSearchRank,
   PengpaiRank,
+  HistoryTodayRank,
   QQNewsRank,
   PiyaoRank,
 ];

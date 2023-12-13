@@ -18,11 +18,7 @@ import { useState } from "react";
 import React from "react";
 
 export const TooltipString = ({
-  tooltip = {
-    placement: "top",
-    content: "",
-    className: "",
-  },
+  tooltip: { placement = "top", className = "", content },
   children,
 }: {
   tooltip: {
@@ -36,7 +32,7 @@ export const TooltipString = ({
   const { refs, floatingStyles, context } = useFloating({
     open: isOpen,
     onOpenChange: setIsOpen,
-    placement: tooltip.placement,
+    placement: placement,
     middleware: [offset(10), flip(), shift()],
     whileElementsMounted: autoUpdate,
   });
@@ -66,10 +62,10 @@ export const TooltipString = ({
           style={floatingStyles}
           className={cn(
             "bg-primary text-primary-foreground shadow hover:bg-primary/90 px-2 py-1 text-sm rounded-md z-[99999]",
-            tooltip.className
+            className
           )}
           {...getFloatingProps()}>
-          {tooltip.content}
+          {content}
         </div>
       )}
     </>
