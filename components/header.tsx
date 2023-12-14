@@ -101,7 +101,7 @@ export default function Header() {
           tooltip={{
             content: "电子木鱼",
           }}>
-          <Link href="/muyu">
+          <Link href="https://w-fish.huala.fun" target="_blank">
             <Button size="icon" className="rounded-full w-8 h-8">
               <MuYuIcon className="w-4 h-4" />
             </Button>
