@@ -74,7 +74,7 @@ export function GridView({
                   };
                 })
               );
-              toast.success("排序成功");
+              toast.success("排序 成功");
             });
           },
         })
