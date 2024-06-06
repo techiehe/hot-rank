@@ -1,4 +1,5 @@
-这是一个基于 [Next.js](https://nextjs.org/) 的项目。
+## hot-rank
+基于  [Next.js](https://nextjs.org/) 制作的热榜聚合网站
 
 ## 安装
 ```bash
