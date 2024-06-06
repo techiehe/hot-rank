@@ -32,12 +32,7 @@ export default function Setting() {
 
             updateRankMetaList((draft: any) => {
               const [element] = draft.splice(oldIndex, 1);
-              console.log("ddd", element);
-              console.log("oldIndex", oldIndex);
-              console.log("newIndex", newIndex);
-
               draft.splice(newIndex, 0, element);
-              console.log(draft.length);
               setRankList(draft);
               toast.success("排序成功");
             });

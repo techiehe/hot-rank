@@ -15,7 +15,6 @@ export async function rank() {
   try {
     const currentDate = new Date();
     const date = format(currentDate, "yyyy-MM-dd");
-    console.log(`${BaseURL}/hot-list/renqi/${date}/1`);
     const res = await fetch(`${BaseURL}/hot-list/renqi/${date}/1`);
     const html = await res.text();
     const $ = cheerio.load(html);
@@ -26,7 +25,6 @@ export async function rank() {
     list.each(function (index) {
       const titleA = $(this).find("a.article-item-title");
       //   const descA = $(this).find("a.article-item-description");
-      console.log();
       const title = titleA.text();
       const link = titleA.attr("href");
       //   const desc = descA.text();
@@ -40,7 +38,6 @@ export async function rank() {
     });
     return data;
   } catch (e) {
-    console.log(e);
     return [];
   }
 }

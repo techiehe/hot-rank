@@ -18,7 +18,6 @@ export async function rank() {
     const data: any = [];
     list.each(function (index) {
       const a = $(this).find(".t-info > a");
-      console.log();
       const title = a.text();
       const link = a.attr("href");
       const heat = $(this).find(".t-info > span").text();
@@ -31,7 +30,6 @@ export async function rank() {
     });
     return data;
   } catch (e) {
-    console.log(e);
     return [];
   }
 }

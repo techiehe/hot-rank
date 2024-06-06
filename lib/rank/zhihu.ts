@@ -31,7 +31,6 @@ export async function rank() {
     });
     return data;
   } catch (error) {
-    console.log(error);
     return [];
   }
 }

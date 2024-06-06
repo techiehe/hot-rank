@@ -24,7 +24,6 @@ export async function kuaiBaoRank(id: string, page: number = 1) {
       };
     });
   } catch (e) {
-    console.log(e);
     return [];
   }
 }

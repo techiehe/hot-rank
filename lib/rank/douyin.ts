@@ -34,7 +34,6 @@ export  async function rank() {
       };
     });
   } catch (e) {
-    console.log(e);
     return [];
   }
 }

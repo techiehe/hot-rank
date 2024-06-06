@@ -1,5 +1,5 @@
 import ZhihuRank from "./zhihu";
-import WeiboRank from "./weibo";
+import WeiboRank from "./weibo/index";
 import BiliBiliRank from "./bilibili";
 import ToutiaoRank from "./toutiao";
 import BaiduRank from "./baidu";
@@ -23,7 +23,7 @@ export const rankList = [
   ...JieMainList,
   AcFun,
   ZhihuRank,
-  WeiboRank,
+  ...WeiboRank,
   NBDRank,
   SinaRank,
   BiliBiliRank,
